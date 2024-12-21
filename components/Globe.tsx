@@ -415,8 +415,9 @@ export function HeroSection() {
                         ChainDen
                     </h1>
                     <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
-                        A den for nomads, on Chain.
+                        A Social community driven platform for trails sharing.
                     </p>
+                    <p className="text-center">A Den for travelers on chain</p>
                 </motion.div>
                 <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
                 <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">

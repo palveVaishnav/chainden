@@ -2,36 +2,14 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Heart, MessageCircle, Bookmark, Map, Navigation, Clock, Calendar, User, Menu, ChevronRight } from 'lucide-react'
-import Link from "next/link"
+import { Heart, MessageCircle, Bookmark, Map, Navigation, Clock, Calendar, User, ChevronRight } from 'lucide-react'
+import NavigationBar from "@/components/Menu"
 
 export default function RoutePage() {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
-            <header className="border-b bg-white sticky top-0 z-10">
-                <div className="container mx-auto px-4 flex h-16 items-center justify-between">
-                    <Link href="/" className="text-xl font-semibold">
-                        ChainDen
-                    </Link>
-                    <Button variant="ghost" size="icon" className="md:hidden">
-                        <Menu className="h-5 w-5" />
-                    </Button>
-                    <nav className="hidden md:flex items-center gap-6">
-                        <Link href="/routes" className="text-sm font-medium hover:text-primary">
-                            Explore
-                        </Link>
-                        <Link href="/profile" className="text-sm font-medium hover:text-primary">
-                            Profile
-                        </Link>
-                        <Avatar className="h-8 w-8">
-                            <AvatarImage src="/https://avatar.iran.liara.run/public" />
-                            <AvatarFallback>U</AvatarFallback>
-                        </Avatar>
-                    </nav>
-                </div>
-            </header>
-
+            <NavigationBar />
             {/* Hero Section */}
             <section className="bg-gradient-to-r from-green-700 to-green-400 text-white py-16">
                 <div className="container mx-auto px-4">

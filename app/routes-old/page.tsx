@@ -1,4 +1,5 @@
 'use client'
+import NavigationBar from "@/components/Menu";
 import { Bookmark, HeartIcon, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -168,6 +169,7 @@ function Cards() {
     ]
     return (
         <div className="grid grid-cols-3 gap-8 mt-4 px-40">
+            <NavigationBar />
             {routeList.map((route, id) => (
                 <div
                     className="relative border border-black rounded-lg p-8 cursor-pointer flex flex-col gap-4 group hover:shadow-xl transition-shadow duration-300"
