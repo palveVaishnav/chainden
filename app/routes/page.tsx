@@ -1,5 +1,4 @@
 'use client'
-import { motion } from "framer-motion";
 import { Bookmark, HeartIcon, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -171,11 +170,11 @@ function Cards() {
         <div className="grid grid-cols-3 gap-8 mt-4 px-40">
             {routeList.map((route, id) => (
                 <div
-                    className="relative border border-black rounded-lg p-8 cursor-pointer flex flex-col gap-4 group hover:shadow-lg transition-shadow duration-300"
+                    className="relative border border-black rounded-lg p-8 cursor-pointer flex flex-col gap-4 group hover:shadow-xl transition-shadow duration-300"
                     key={id}
-                    onClick={router.push('/route')}
+                    onClick={() => router.push('/routes/route')}
                 >
-                    <div id="mainCard" className="group">
+                    <div id="mainCard" className="group grid gap-4">
                         {/* Header Section */}
                         <div className="flex justify-between">
                             <p className="border border-black rounded-md px-2 text-sm font-medium">
