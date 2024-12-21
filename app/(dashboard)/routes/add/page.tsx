@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
     name: z.string().min(3, {
@@ -38,7 +39,7 @@ const formSchema = z.object({
 
 export default function CreateRoutePage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
-
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -53,6 +54,7 @@ export default function CreateRoutePage() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         setIsSubmitting(true)
         // Here you would typically send the form data to your backend
+        router.push("/routes")
         console.log(values)
         setTimeout(() => {
             setIsSubmitting(false)
@@ -65,7 +67,7 @@ export default function CreateRoutePage() {
         <div className="container mx-auto px-4 py-8">
             <Card className="max-w-2xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Create a New Route</CardTitle>
+                    <CardTitle className="text-3xl">Create a New Route</CardTitle>
                     <CardDescription>Share your favorite route with the community</CardDescription>
                 </CardHeader>
                 <CardContent>
