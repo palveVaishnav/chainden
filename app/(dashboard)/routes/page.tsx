@@ -1,7 +1,9 @@
 'use client'
 import NavigationBar from "@/components/Menu";
+import { TrailData } from "@/types/route";
 import { Bookmark, HeartIcon, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
     return (
@@ -34,6 +36,30 @@ function Searchbar() {
 
 export function Cards() {
     const router = useRouter();
+    const [newRouteList, setRouteList] = useState<TrailData>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchRoutes = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/tracks');
+                const data = await response.json();
+                if (data.success) {
+                    setRouteList(data.data);  // Set the route list from API response
+                }
+            } catch (error) {
+                console.error("Error fetching routes:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRoutes();
+    }, []);
+
+    console.log(newRouteList)
+
+    /*
     const routeList = [
         {
             name: 'Maharashtra Marvels',
@@ -146,10 +172,11 @@ export function Cards() {
             totalLikes: 95,
         },
     ];
+    */
 
     return (
         <div className="grid grid-cols-3 gap-8 mt-4 px-40">
-            {routeList.map((route, id) => (
+            {newRouteList.map((route, id) => (
                 <div
                     className="relative border border-black rounded-lg p-8 cursor-pointer flex flex-col gap-4 group hover:shadow-xl transition-shadow duration-300"
                     key={id}
@@ -175,22 +202,22 @@ export function Cards() {
                         {/* User Info */}
                         <div className="flex gap-4 items-center">
                             <div className="p-4 border rounded-full bg-black"></div>
-                            <p className="font-medium">{route.username}</p>
+                            <p className="font-medium">{route.createdAt}</p>
                         </div>
 
                         {/* Stats Section */}
                         <div className="flex gap-4 text-gray-700">
                             <span className="flex items-center gap-1">
                                 <HeartIcon />
-                                <p>{route.totalLikes}</p>
+                                <p>{route.likes.length}</p>
                             </span>
                             <span className="flex items-center gap-1">
                                 <MessageCircle />
-                                <p>{route.totalComments}</p>
+                                <p>{route.comments.length}</p>
                             </span>
                             <span className="flex items-center gap-1">
                                 <Bookmark />
-                                <p>{route.totalSaves}</p>
+                                <p>{route.savedBy.length}</p>
                             </span>
                         </div>
                     </div>

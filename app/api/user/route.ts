@@ -1,17 +1,16 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET() {
-	try {
-		const routes = await prisma.routes.findMany({
-			include: {
-				comments: true, // Include related data if necessary
-			},
-		});
+
+
+
+export async function Get(){
+	try{
+	const users = await prisma.user.findMany();
 
 		return NextResponse.json({
 			success: true,
-			data: routes,
+			data: users,
 		});
 	} catch (error) {
 		console.error("Error fetching routes:", error);
@@ -24,3 +23,6 @@ export async function GET() {
 		);
 	}
 }
+
+
+
