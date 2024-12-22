@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 
 // Wallet adapter imports
-import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
+import { ConnectionProvider, WalletProvider, useWallet } from "@solana/wallet-adapter-react";
 import {
     WalletModalProvider,
     WalletDisconnectButton,
@@ -13,9 +13,40 @@ import {
 } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
+import React from "react";
+
+// Define the POST request function
+const loginUser = async (publicKey: string) => {
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ publicKey }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+            console.log('Public key saved:', data);
+        } else {
+            console.error('Error saving public key:', data);
+        }
+    } catch (error) {
+        console.error('Error in POST request:', error);
+    }
+};
 
 export default function NavigationBar() {
     const wallets = [new PhantomWalletAdapter()];
+    // Using the public key for further interaction 
+    const { publicKey, connected } = useWallet();
+
+    // Trigger POST request when wallet is connected
+    React.useEffect(() => {
+        if (connected && publicKey) {
+            loginUser(publicKey.toBase58());
+        }
+    }, [connected, publicKey]);
 
     return (
         <header className="border-b bg-white sticky top-0 z-10">
@@ -32,6 +63,9 @@ export default function NavigationBar() {
                     </Link>
                     <Link href="/profile" className="text-sm font-medium hover:text-primary">
                         Profile
+                    </Link>
+                    <Link href="/routes/add" className="text-sm font-medium hover:text-primary">
+                        Add yours
                     </Link>
                     <ConnectionProvider endpoint={"https://api.devnet.solana.com"}>
                         <WalletProvider wallets={wallets} autoConnect>
